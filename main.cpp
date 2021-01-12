@@ -7,13 +7,15 @@
 #include <sys/types.h>
 #include <sys/utsname.h>
 
-#define CMD_MAX 256
+#define CMD_MAX 128
 
 using namespace std;
 
 char last_path[PATH_MAX];
-char input[CMD_MAX];
+string commands[CMD_MAX]; // 分解后的命令
+int cmds_count = 0; // 分解得到的命令个数
 
+// 打印提示
 void print_prompt()
 {
 	char path[PATH_MAX] = "\0"; // 当前工作目录
@@ -52,14 +54,70 @@ void print_prompt()
 	}
 	else
 	{
-		// 显示提示
-		printf("[JShell]%s@%s:%s%c ", user_info->pw_name, uname_data.nodename, path_prompt, prompt);
+		// 显示彩色提示
+		printf("\033[40;32m[JShell]%s@%s\033[0m", user_info->pw_name, uname_data.nodename);
+		printf(":");
+		printf("\033[40;34m%s\033[0m", path_prompt);
+		printf("%c ", prompt);
+		//显示普通提示
+		//printf("[JShell]%s@%s:%s%c ", user_info->pw_name, uname_data.nodename, path_prompt, prompt);
 		fflush(stdout);
 	}
 }
+// 获得输入并处理
 void get_input()
 {
-	getchar();
+	cmds_count = 0;
+	int cmd_len = 0;
+	char cmd[CMD_MAX + 1] = "\0";
+	char ch = '\0';
+	while (1)
+	{
+		ch = getchar();
+		if (ch == ' ')
+		{
+			cmd[cmd_len++] = '\0';
+			if (cmd_len > CMD_MAX)
+			{
+				printf("[ERROR]: Command is too long\n");
+				break;
+			}
+			commands[cmds_count++] = cmd;
+			if (cmds_count > CMD_MAX)
+			{
+				printf("[ERROR]: Command is too long\n");
+				break;
+			}
+			cmd_len = 0;
+		}
+		else if (ch == '\"')
+		{
+			while ((ch = getchar()) != '\"')
+			{
+				cmd[cmd_len++] = ch;
+			}
+		}
+		else if (ch == '\n')
+		{
+			cmd[cmd_len++] = '\0';
+			if (cmd_len > CMD_MAX)
+			{
+				printf("[ERROR]: Command is too long\n");
+				break;
+			}
+			commands[cmds_count++] = cmd;
+			if (cmds_count > CMD_MAX)
+			{
+				printf("[ERROR]: Command is too long\n");
+				break;
+			}
+			break;
+		}
+		else
+		{
+			cmd[cmd_len++] = ch;
+		}
+	}
 	fflush(stdin);
 }
 int main()
