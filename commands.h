@@ -1,14 +1,17 @@
 #pragma once
 
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 #include "data.h"
+#include "ls.h"
 
 //判断命令是否存在
 int isCmdExist(const char* cmd);
 //分解输入的命令
 int splitCmds(char argv[]);
-//判断输入命令是否不含管道和重定向
-int isSimpleCmd();
+//判断命令的类型
+int commandsType();
 //调用简单函数
 int callSimpleCmd();
 
@@ -18,14 +21,12 @@ int callSimpleCmd();
 */
 
 //切换工作路径
-int cd(const char* path);
+int cd();
 //打印当前路径
 int pwd();
-//列出目录下所有文件和子目录
-int ls();
 //字符串输出
-int echo(const char* str);
+int echo();
 //获取文件内容
-int cat(const char* filename);
-//退出JShell
-int exit();
+int cat();
+//调用ls命令
+int call_ls();
