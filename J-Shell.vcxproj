@@ -79,12 +79,16 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <ClCompile Include="commands.cpp" />
     <ClCompile Include="data.cpp" />
+    <ClCompile Include="ls.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="prompt.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="commands.h" />
     <ClInclude Include="data.h" />
+    <ClInclude Include="ls.h" />
     <ClInclude Include="prompt.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
