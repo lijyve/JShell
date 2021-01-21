@@ -1,18 +1,24 @@
-#include "data.h"
-int cmdNum = 0; // ÃüÁî¸öÊı
-char commands[CMDSIZE][CMDSIZE] = { 0 }; // ÃüÁî¸öÊı
-char promptSign = '$'; // ÌáÊ¾·û
-extern char promptPath[PATH_MAX] = "\0"; // ÌáÊ¾Â·¾¶
-extern struct passwd* user_info = NULL; // ÓÃ»§ĞÅÏ¢
-char curPath[PATH_MAX] = "\0"; // ¹¤×÷Â·¾¶
-char username[CMDSIZE] = "\0"; // ÓÃ»§Ãû
-char hostname[CMDSIZE] = "\0"; // Ö÷»úÃû
+ï»¿#include "data.h"
+int cmdNum = 0; // å‘½ä»¤ä¸ªæ•°
+char* commands[CMDSIZE] = { 0 }; // å‘½ä»¤ä¸ªæ•°
+char promptSign = '$'; // æç¤ºç¬¦
+extern char promptPath[PATH_MAX] = "\0"; // æç¤ºè·¯å¾„
+extern struct passwd* user_info = NULL; // ç”¨æˆ·ä¿¡æ¯
+char curPath[PATH_MAX] = "\0"; // å·¥ä½œè·¯å¾„
+char username[CMDSIZE] = "\0"; // ç”¨æˆ·å
+char hostname[CMDSIZE] = "\0"; // ä¸»æœºå
 
 const char CMD_CD[] = "cd"; // cd
 const char CMD_PWD[] = "pwd"; // pwd
 const char CMD_LS[] = "ls"; // ls
+const char CMD_CP[] = "cp"; //cp
 const char CMD_ECHO[] = "echo"; // echo
 const char CMD_CAT[] = "cat"; // cat
+const char CMD_TIME[] = "time"; // time
+const char CMD_CLEAR[] = "clear"; // clear
+const char CMD_VI[] = "vi"; // vi
+const char CMD_GCC[] = "gcc"; // gcc
+const char CMD_RUN[] = ".out"; // run .out
 const char CMD_EXIT[] = "exit"; // exit
 const char CMD_PIPE[] = "|"; // |
 const char CMD_IN[] = "<"; // <
