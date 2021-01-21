@@ -1,24 +1,24 @@
-#include "prompt.h"
+ï»¿#include "prompt.h"
 
-//»ñÈ¡ÓÃ»§Ãû
+//è·å–ç”¨æˆ·å
 void getUserName()
 {
 	user_info = getpwuid(getuid());
 	strcpy(username, user_info->pw_name);
 }
-//»ñÈ¡Ö÷»úÃû
+//è·å–ä¸»æœºå
 void getHostName()
 {
 	gethostname(hostname, CMDSIZE);
 }
-//»ñÈ¡ÌáÊ¾·û
+//è·å–æç¤ºç¬¦
 void getPromptSign()
 {
-	//ĞŞ¸ÄrootÓÃ»§µÄÌáÊ¾·ûÎª'#'
+	//ä¿®æ”¹rootç”¨æˆ·çš„æç¤ºç¬¦ä¸º'#'
 	if (getuid() == 0)
 		promptSign = '#';
 }
-//»ñÈ¡ÌáÊ¾Â·¾¶
+//è·å–æç¤ºè·¯å¾„
 void getPromptPath()
 {
 	getcwd(curPath, PATH_MAX);
@@ -31,7 +31,7 @@ void getPromptPath()
 		strcpy(promptPath + 1, curPath + pw_dir_len);
 	}
 }
-//´òÓ¡ÌáÊ¾
+//æ‰“å°æç¤º
 void printPrompt()
 {
 	getUserName();

@@ -1,8 +1,8 @@
-#include "ls.h"
+ï»¿#include "ls.h"
 
 char* targetDir = NULL;
 const char* permissions[] = { "---", "r--", "-w-", "rw-", "--x", "r-x", "-wx", "rwx" };
-//¸ù¾ÝÎÄ¼þÀàÐÍ»ñµÃÁÐ±íÏÔÊ¾µÄ×Ö·û
+//æ ¹æ®æ–‡ä»¶ç±»åž‹èŽ·å¾—åˆ—è¡¨æ˜¾ç¤ºçš„å­—ç¬¦
 char fileType(mode_t mode)
 {
 	if (S_ISDIR(mode))
@@ -20,7 +20,7 @@ char fileType(mode_t mode)
 	else
 		return '-';
 }
-//»ñµÃÎÄ¼þÈ¨ÏÞ
+//èŽ·å¾—æ–‡ä»¶æƒé™
 const char* getPermission(mode_t code)
 {
 	switch (code)
@@ -43,15 +43,15 @@ const char* getPermission(mode_t code)
 		return permissions[0];
 	}
 }
-//»ñµÃÎÄ¼þÓµÓÐÕßµÄusername
+//èŽ·å¾—æ–‡ä»¶æ‹¥æœ‰è€…çš„username
 const char* getUsername(uid_t uid)
 {
-	struct	passwd* user_info;
-	if ((user_info = getpwuid(uid)) == NULL)
+	struct	passwd* userInfo;
+	if ((userInfo = getpwuid(uid)) == NULL)
 		return "Unknown";
-	return user_info->pw_name;
+	return userInfo->pw_name;
 }
-//»ñµÃÎÄ¼þÓµÓÐÕßµÄgroupname
+//èŽ·å¾—æ–‡ä»¶æ‹¥æœ‰è€…çš„groupname
 const char* getGroupname(gid_t gid)
 {
 	struct	group* group_info;
@@ -60,30 +60,30 @@ const char* getGroupname(gid_t gid)
 	return group_info->gr_name;
 }
 
-//ÊµÏÖlsºÍls -a
-//option=1Îªls, option=2Îªls -a
+//å®žçŽ°lså’Œls -a
+//option=1ä¸ºls, option=2ä¸ºls -a
 int ls(int option)
 {
 	DIR* target;
 	struct stat statbuf;
 	struct dirent* entry;
-	//´ò¿ªÄ¿Â¼Ê§°Ü
+	//æ‰“å¼€ç›®å½•å¤±è´¥
 	if ((target = opendir(targetDir)) == NULL)
 		return ERROR_PATH;
-	//±éÀúÄ¿±êÄ¿Â¼
+	//éåŽ†ç›®æ ‡ç›®å½•
 	chdir(targetDir);
 	while ((entry = readdir(target)) != NULL)
 	{
-		//»ñÈ¡ÎÄ¼þÐÅÏ¢
+		//èŽ·å–æ–‡ä»¶ä¿¡æ¯
 		lstat(entry->d_name, &statbuf);
-		if (S_ISDIR(statbuf.st_mode)) // ´òÓ¡Ä¿Â¼
+		if (S_ISDIR(statbuf.st_mode)) // æ‰“å°ç›®å½•
 		{
 			if ((!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, "..")) && option == 1) // ls
 				continue;
 			else // ls -a
 				printf("\033[42;37m%s\033[0m  ", entry->d_name);
 		}
-		else // ´òÓ¡ÎÄ¼þ
+		else // æ‰“å°æ–‡ä»¶
 			printf("\033[40;32m%s\033[0m  ", entry->d_name);
 	}
 	printf("\n");
@@ -98,35 +98,35 @@ int ls_l()
 	struct dirent* entry;
 	unsigned long long int totalSize = 0;
 
-	//»ñÈ¡Ä¿Â¼ÏÂËùÓÐÎÄ¼þµÄ´óÐ¡×ÜºÍ
-	//´ò¿ªÄ¿Â¼Ê§°Ü
+	//èŽ·å–ç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶çš„å¤§å°æ€»å’Œ
+	//æ‰“å¼€ç›®å½•å¤±è´¥
 	if ((target = opendir(targetDir)) == NULL)
 		return ERROR_PATH;
-	//±éÀúÄ¿±êÄ¿Â¼
+	//éåŽ†ç›®æ ‡ç›®å½•
 	chdir(targetDir);
 	while ((entry = readdir(target)) != NULL)
 	{
-		//»ñÈ¡ÎÄ¼þÐÅÏ¢
+		//èŽ·å–æ–‡ä»¶ä¿¡æ¯
 		lstat(entry->d_name, &statbuf);
-		//¼ÆËãÄ¿Â¼×Ü´óÐ¡
+		//è®¡ç®—ç›®å½•æ€»å¤§å°
 		totalSize += statbuf.st_size;
 	}
 	printf("total %lluK\n", totalSize / 1024);
 	chdir(curPath);
 	closedir(target);
 
-	//´òÓ¡Ä¿Â¼ÏÂËùÓÐÎÄ¼þµÄÏêÇé
+	//æ‰“å°ç›®å½•ä¸‹æ‰€æœ‰æ–‡ä»¶çš„è¯¦æƒ…
 	if ((target = opendir(targetDir)) == NULL)
 		return ERROR_PATH;
-	//±éÀúÄ¿±êÄ¿Â¼
+	//éåŽ†ç›®æ ‡ç›®å½•
 	chdir(targetDir);
 	while ((entry = readdir(target)) != NULL)
 	{
-		//»ñÈ¡ÎÄ¼þÐÅÏ¢
+		//èŽ·å–æ–‡ä»¶ä¿¡æ¯
 		lstat(entry->d_name, &statbuf);
-		//´òÓ¡ÎÄ¼þÀàÐÍ
+		//æ‰“å°æ–‡ä»¶ç±»åž‹
 		printf("%c", fileType(statbuf.st_mode));
-		//´òÓ¡ÎÄ¼þµÄ´æÈ¡È¨ÏÞ
+		//æ‰“å°æ–‡ä»¶çš„å­˜å–æƒé™
 		unsigned int filePermission = statbuf.st_mode & 0777;
 		const char* otherPermisson = getPermission(filePermission % 8);
 		filePermission /= 8;
@@ -134,17 +134,17 @@ int ls_l()
 		filePermission /= 8;
 		const char* userPermission = getPermission(filePermission);
 		printf("%s%s%s ", userPermission, groupPermisson, otherPermisson);
-		//´òÓ¡ÎÄ¼þµÄÓ²Á´½Ó¸öÊý
+		//æ‰“å°æ–‡ä»¶çš„ç¡¬é“¾æŽ¥ä¸ªæ•°
 		printf("%d ", statbuf.st_nlink);
-		//´òÓ¡ÎÄ¼þµÄÓµÓÐÕß¼°ÆäÈº×é
+		//æ‰“å°æ–‡ä»¶çš„æ‹¥æœ‰è€…åŠå…¶ç¾¤ç»„
 		printf("%-8s%-8s ", getUsername(statbuf.st_uid), getGroupname(statbuf.st_gid));
-		//´òÓ¡ÎÄ¼þ´óÐ¡
+		//æ‰“å°æ–‡ä»¶å¤§å°
 		printf("%4ldK ", statbuf.st_size / 1024);
-		//´òÓ¡ÎÄ¼þµÄ×îºóÒ»´ÎÐÞ¸ÄÊ±¼ä
+		//æ‰“å°æ–‡ä»¶çš„æœ€åŽä¸€æ¬¡ä¿®æ”¹æ—¶é—´
 		char* fileTime = ctime(&statbuf.st_mtime);
 		fileTime[strlen(fileTime) - 1] = '\0';
 		printf("%s ", fileTime);
-		//´òÓ¡ÎÄ¼þÃû
+		//æ‰“å°æ–‡ä»¶å
 		if (S_ISDIR(statbuf.st_mode))
 			printf("\033[42;37m%s\033[0m", entry->d_name);
 		else
@@ -152,9 +152,10 @@ int ls_l()
 
 		printf("\n");
 	}
+	chdir(curPath);
 	return RIGHT;
 }
-// lsµÄÖ÷º¯Êý
+// lsçš„ä¸»å‡½æ•°
 int ls()
 {
 	if (cmdNum > 3)

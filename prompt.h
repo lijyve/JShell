@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 
 #include <sys/types.h>
 #include <pwd.h>
@@ -7,13 +7,13 @@
 #include <stdio.h>
 #include "data.h"
 
-//»ñÈ¡ÓÃ»§Ãû
+//è·å–ç”¨æˆ·å
 void getUserName();
-//»ñÈ¡Ö÷»úÃû
+//è·å–ä¸»æœºå
 void getHostName();
-//»ñÈ¡ÌáÊ¾·û
+//è·å–æç¤ºç¬¦
 void getPromptSign();
-//»ñÈ¡ÌáÊ¾Â·¾¶
+//è·å–æç¤ºè·¯å¾„
 void getPromptPath();
-//´òÓ¡ÌáÊ¾
+//æ‰“å°æç¤º
 void printPrompt();
