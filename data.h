@@ -1,44 +1,59 @@
-#pragma once
+ï»¿#pragma once
 #include <unistd.h>
 #include <limits.h>
 #include <sys/types.h>
 #define CMDSIZE 256
 
-extern int cmdNum; // ÃüÁî¸öÊı
-extern char commands[][CMDSIZE]; // ÃüÁî¸öÊı
-extern char promptSign; // ÌáÊ¾·û
-extern char promptPath[]; // ÌáÊ¾Â·¾¶
-extern struct passwd* user_info; // ÓÃ»§ĞÅÏ¢
-extern char curPath[]; // ¹¤×÷Â·¾¶
-extern char username[]; // ÓÃ»§Ãû
-extern char hostname[]; // Ö÷»úÃû
+extern int cmdNum; // å‘½ä»¤ä¸ªæ•°
+extern char* commands[CMDSIZE]; // å‘½ä»¤ä¸ªæ•°
+extern char promptSign; // æç¤ºç¬¦
+extern char promptPath[]; // æç¤ºè·¯å¾„
+extern struct passwd* user_info; // ç”¨æˆ·ä¿¡æ¯
+extern char curPath[]; // å·¥ä½œè·¯å¾„
+extern char username[]; // ç”¨æˆ·å
+extern char hostname[]; // ä¸»æœºå
 
 extern const char CMD_CD[]; // cd
 extern const char CMD_PWD[]; // pwd
 extern const char CMD_LS[]; // ls
+extern const char CMD_CP[]; // cp
 extern const char CMD_ECHO[]; // echo
 extern const char CMD_CAT[]; // cat
+extern const char CMD_TIME[]; // time
+extern const char CMD_CLEAR[]; // clear
+extern const char CMD_VI[]; // vi
+extern const char CMD_GCC[]; // gcc
+extern const char CMD_RUN[]; // run .out
 extern const char CMD_EXIT[]; // exit
 extern const char CMD_PIPE[]; // |
 extern const char CMD_IN[]; // <
 extern const char CMD_OUT[]; // >
 
-//×´Ì¬Âë
+//çŠ¶æ€ç 
 enum
 {
-	EXIT,
 	RIGHT,
+	EXIT,
+	ERROR_FORK,
+	ERROR_EXEC,
 	ERROR_COMMAND,
-	//ERROR_CD,
-	//ERROR_PWD,
-	//ERROR_LS,
-	//ERROR_ECHO,
-	//ERROR_CAT,
-	//ERROR_EXIT,
+	ERROR_EXIT,
+	ERROR_CD,
+	ERROR_PWD,
+	ERROR_ECHO,
+	ERROR_CAT,
+	ERROR_LS,
+	ERROR_CP,
+	ERROR_GCC,
+	ERROR_PIPE,
+	ERROR_TOO_MANY_IN,
+	ERROR_TOO_MANY_OUT,
 	ERROR_WRONG_PARAMETER,
 	ERROR_MISS_PARAMETER,
 	ERROR_TOO_MANY_PARAMETER,
 	SIMPLE,
 	COMPLEX,
 	ERROR_PATH,
+	ERROR_TARGET_EXITS,
+	ERROR_IO,
 };
