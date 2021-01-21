@@ -14,6 +14,15 @@
     <ClCompile Include="ls.cpp">
       <Filter>lib</Filter>
     </ClCompile>
+    <ClCompile Include="cp.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="pipe.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="redirect.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="lib">
@@ -31,6 +40,15 @@
       <Filter>lib</Filter>
     </ClInclude>
     <ClInclude Include="ls.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="cp.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="pipe.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="redirect.h">
       <Filter>lib</Filter>
     </ClInclude>
   </ItemGroup>

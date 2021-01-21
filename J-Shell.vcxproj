@@ -80,16 +80,22 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClCompile Include="commands.cpp" />
+    <ClCompile Include="cp.cpp" />
     <ClCompile Include="data.cpp" />
     <ClCompile Include="ls.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pipe.cpp" />
     <ClCompile Include="prompt.cpp" />
+    <ClCompile Include="redirect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="commands.h" />
+    <ClInclude Include="cp.h" />
     <ClInclude Include="data.h" />
     <ClInclude Include="ls.h" />
+    <ClInclude Include="pipe.h" />
     <ClInclude Include="prompt.h" />
+    <ClInclude Include="redirect.h" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
