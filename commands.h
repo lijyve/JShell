@@ -1,32 +1,50 @@
-#pragma once
+ï»¿#pragma once
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <assert.h>
 #include <unistd.h>
+#include <errno.h>
+#include <sys/wait.h>
 #include "data.h"
 #include "ls.h"
+#include "cp.h"
+#include "pipe.h"
 
-//ÅĞ¶ÏÃüÁîÊÇ·ñ´æÔÚ
-int isCmdExist(const char* cmd);
-//·Ö½âÊäÈëµÄÃüÁî
+//åˆ†è§£è¾“å…¥çš„å‘½ä»¤
 int splitCmds(char argv[]);
-//ÅĞ¶ÏÃüÁîµÄÀàĞÍ
+//åˆ¤æ–­å‘½ä»¤çš„ç±»å‹
 int commandsType();
-//µ÷ÓÃ¼òµ¥º¯Êı
+//è°ƒç”¨ç®€å•å‡½æ•°
 int callSimpleCmd();
+//è°ƒç”¨å¤æ‚å‘½ä»¤
+int callComplexCmd();
 
 /*
-* ÒÔÏÂÊÇ¼òµ¥µÄÃüÁî
-* Í¨¹ıµ¥¸öº¯ÊıµÄµ÷ÓÃ¿ÉÒÔÊµÏÖ¹¦ÄÜ
+* ä»¥ä¸‹æ˜¯ç®€å•çš„å‘½ä»¤
+* é€šè¿‡å•ä¸ªå‡½æ•°çš„è°ƒç”¨å¯ä»¥å®ç°åŠŸèƒ½
 */
 
-//ÇĞ»»¹¤×÷Â·¾¶
+//åˆ‡æ¢å·¥ä½œè·¯å¾„
 int cd();
-//´òÓ¡µ±Ç°Â·¾¶
+//æ‰“å°å½“å‰è·¯å¾„
 int pwd();
-//×Ö·û´®Êä³ö
+//å­—ç¬¦ä¸²è¾“å‡º
 int echo();
-//»ñÈ¡ÎÄ¼şÄÚÈİ
+//è·å–æ–‡ä»¶å†…å®¹
 int cat();
-//µ÷ÓÃlsÃüÁî
+//è®¡ç®—è¿›ç¨‹è¿è¡Œæ—¶é—´çš„å‡½æ•°
+int time();
+//æ¸…å±å‡½æ•°
+int clear();
+//ç¼–è¾‘æ–‡ä»¶
+int vi();
+//ç¼–è¯‘æ–‡ä»¶
+int gcc();
+//è¿è¡Œ.outæ–‡ä»¶
+int run_program();
+//è°ƒç”¨lså‘½ä»¤
 int call_ls();
+//è°ƒç”¨cpå‘½ä»¤
+int call_cp();
